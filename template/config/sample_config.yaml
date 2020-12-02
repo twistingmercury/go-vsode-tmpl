@@ -1,0 +1,40 @@
+environment: "local-dev" # what you will see in Datadog as 'Env' or 'Environment'
+name: rest_api # what you will see in Datadog as service name
+clientauth:
+  - id: [client id] 
+    secret: [client secret]
+    granttype: client_credentials
+    scope: "scope1, scope2, ..."
+api:
+  port: 8080
+  authprovider:
+    provider: "ID4 Server"
+    baseurl: [AUTH_BASE_URL]
+    introspectpath: /connect/introspect
+    tokenpath: /connect/token
+    id: [identity]
+    secret: [secret]
+    scope: [scope]
+  dependencies:
+    - name: "DuckDuckGo"
+      connection: "https://duckduckgo.com/"
+      type: HTTP
+    - name: "Google"
+      connection: "https://www.google.com/"
+      type: HTTP
+healthcheck:
+  path: /healthcheck
+  port: 8090
+monitoring:
+  provider: datadog
+  apikey: [DD_API_KEY]
+  tracing:
+    agenthost: [DD_AGENT_HOST]
+    intakePort: 80
+    injectLogs: true
+    enableAnalytics: true
+  logging:
+    intakeURL: [DD_LOG_INTAKE_URL]
+    intakePort: 443
+    bufferSize: 1
+    timeout: 3
